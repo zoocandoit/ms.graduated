@@ -1,7 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: teastore
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-db
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-db
@@ -26,14 +33,20 @@ spec:
         - containerPort: 3306
         resources:
           requests:
-            memory: 
+            memory: "256Mi"
           limits:
-            memory: 
+            memory: "512Mi"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
+      nodeSelector:
+        name: "worker2"      
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: teastore-db
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-db
@@ -48,6 +61,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-registry
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-registry
@@ -72,17 +86,23 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory: 
+            memory: "256Mi"
           limits:
-            memory: 
+            memory: "512Mi"
         env:
         - name: USE_POD_IP
           value: "true"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]  
+      nodeSelector:
+        name: "worker2"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: teastore-registry
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-registry
@@ -97,6 +117,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-persistence
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-persistence
@@ -121,9 +142,9 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory: 
+            memory: "256Mi"
           limits:
-            memory: 
+            memory: "512Mi"
         env:
         - name: USE_POD_IP
           value: "true"
@@ -133,11 +154,17 @@ spec:
           value: "teastore-db"
         - name: DB_PORT
           value: "3306"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]            
+      nodeSelector:
+        name: "worker2"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-auth
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-auth
@@ -162,20 +189,26 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory: 
+            memory: "256Mi"
           limits:
-            memory: 
+            memory: "512Mi"
         env:
         - name: USE_POD_IP
           value: "true"
         - name: REGISTRY_HOST
           value: "teastore-registry"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
+      nodeSelector:
+        name: "worker"    
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-image
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-image
@@ -200,19 +233,25 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory: 
+            memory: "256Mi"
           limits:
-            memory: 
+            memory: "512Mi"
         env:
         - name: USE_POD_IP
           value: "true"
         - name: REGISTRY_HOST
           value: "teastore-registry"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
+      nodeSelector:
+        name: "worker"      
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-recommender
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-recommender
@@ -237,19 +276,25 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory:
+            memory: "256Mi"
           limits:
-            memory:
+            memory: "512Mi"
         env:
         - name: USE_POD_IP
           value: "true"
         - name: REGISTRY_HOST
           value: "teastore-registry"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
+      nodeSelector:
+        name: "worker"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: teastore-webui
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-webui
@@ -274,19 +319,26 @@ spec:
         - containerPort: 8080
         resources:
           requests:
-            memory: 
+            memory: "256Mi"
           limits:
-            memory: 
+            memory: "512Mi"
         env:
         - name: USE_POD_IP
           value: "true"
         - name: REGISTRY_HOST
           value: "teastore-registry"
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
+      nodeSelector:
+        name: "worker"
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: teastore-webui
+  namespace: teastore
   labels:
     app: teastore
     run: teastore-webui
