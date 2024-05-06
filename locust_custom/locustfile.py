@@ -1,13 +1,14 @@
 import logging
 from random import randint, choice
+#from locust import between
 
 from locust import HttpUser, task
 
 # logging
 logging.getLogger().setLevel(logging.INFO)
 
-
 class UserBehavior(HttpUser):
+   # wait_time = betweem(0.5,1)
 
     @task
     def load(self) -> None:
