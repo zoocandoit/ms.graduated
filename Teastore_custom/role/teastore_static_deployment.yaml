@@ -165,7 +165,7 @@ spec:
           capabilities:
             add: ["NET_RAW"]
       nodeSelector:
-        name: "worker"    
+        name: "worker2"    
 
 ---
 apiVersion: apps/v1
@@ -209,7 +209,7 @@ spec:
           capabilities:
             add: ["NET_RAW"]
       nodeSelector:
-        name: "worker"      
+        name: "worker2"      
 ---
 apiVersion: apps/v1
 kind: Deployment
