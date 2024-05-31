@@ -25,6 +25,9 @@ spec:
       {{ end }}
       containers:
       - name: catalogue
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
         image: {{ .Values.image.repo }}/rs-catalogue:{{ .Values.image.version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:

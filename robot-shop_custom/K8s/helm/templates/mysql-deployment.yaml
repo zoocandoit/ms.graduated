@@ -30,7 +30,7 @@ spec:
         # added for Istio
         securityContext:
           capabilities:
-            add: ["NET_ADMIN"]
+            add: ["NET_RAW"]
         ports:
         - containerPort: 3306
         resources:

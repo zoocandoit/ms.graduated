@@ -25,6 +25,9 @@ spec:
       {{ end }}
       containers:
       - name: ratings
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
         image: {{ .Values.image.repo }}/rs-ratings:{{ .Values.image.version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:

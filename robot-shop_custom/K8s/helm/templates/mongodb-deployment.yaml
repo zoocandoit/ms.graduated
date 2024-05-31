@@ -25,6 +25,9 @@ spec:
       {{ end }}
       containers:
       - name: mongodb
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
         image: {{ .Values.image.repo }}/rs-mongodb:{{ .Values.image.version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:

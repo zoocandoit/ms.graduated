@@ -25,6 +25,9 @@ spec:
       {{ end }}
       containers:
       - name: dispatch
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
         image: {{ .Values.image.repo }}/rs-dispatch:{{ .Values.image.version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:

@@ -25,6 +25,9 @@ spec:
       {{ end }}
       containers:
       - name: shipping
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
         image: {{ .Values.image.repo }}/rs-shipping:{{ .Values.image.version }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:

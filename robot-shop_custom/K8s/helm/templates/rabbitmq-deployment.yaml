@@ -25,6 +25,9 @@ spec:
       {{ end }}
       containers:
       - name: rabbitmq
+        securityContext:
+          capabilities:
+            add: ["NET_RAW"]
         image: rabbitmq:3.7-management-alpine
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
