@@ -4,6 +4,9 @@ metadata:
   name: shipping
   labels:
     service: shipping
+    {{- with .Values.shipping.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ports:
   - name: http
@@ -11,3 +14,7 @@ spec:
     targetPort: 8080
   selector:
     service: shipping
+    {{- with .Values.shipping.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+

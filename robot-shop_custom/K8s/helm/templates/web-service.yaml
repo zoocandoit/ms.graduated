@@ -4,6 +4,9 @@ metadata:
   name: web
   labels:
     service: web
+    {{- with .Values.web.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ports:
   - name: http
@@ -11,13 +14,16 @@ spec:
     targetPort: 8080
   selector:
     service: web
+    {{- with .Values.web.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
   {{ if .Values.nodeport }}
   type: NodePort
   {{ else }}
   type: LoadBalancer
   {{ end }}
 ---
-{{if .Values.ocCreateRoute}}
+{{ if .Values.ocCreateRoute }}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -26,4 +32,5 @@ spec:
   to:
     kind: Service
     name: web
-{{end}}
+{{ end }}
+

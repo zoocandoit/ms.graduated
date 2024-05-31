@@ -1,9 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: catalogue
   labels:
     service: catalogue
-  name: catalogue
+    {{- with .Values.catalogue.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ports:
   - name: http
@@ -11,3 +14,7 @@ spec:
     targetPort: 8080
   selector:
     service: catalogue
+    {{- with .Values.catalogue.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+

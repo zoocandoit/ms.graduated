@@ -6,6 +6,9 @@ metadata:
   name: dispatch
   labels:
     service: dispatch
+    {{- with .Values.dispatch.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   clusterIP: None
   ports:
@@ -14,3 +17,7 @@ spec:
     targetPort: 0
   selector:
     service: dispatch
+    {{- with .Values.dispatch.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+

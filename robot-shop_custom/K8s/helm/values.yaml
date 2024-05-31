@@ -31,34 +31,59 @@ ocCreateRoute: false
 #   affinity: {}
 #   nodeSelector: {}
 #   tolerations: []
+#   labels:{}
 ######################################
 
-cart: {}
+cart:
+  labels:
+    app: robot-shop
 
-catalogue: {}
+catalogue:
+  labels:
+    app: robot-shop
 
-dispatch: {}
+dispatch:
+  labels:
+    app: robot-shop
 
-mongodb: {}
+mongodb:
+  labels:
+    app: robot-shop
 
-mysql: {}
+mysql:
+  labels:
+    app: robot-shop
 
 payment:
+  labels:
+    app: robot-shop
   # Alternative payment gateway URL
   # Default is https://www.paypal.com
   gateway: null
   #gateway: https://www.worldpay.com
 
-rabbitmq: {}
+rabbitmq:
+  labels:
+    app: robot-shop
 
-ratings: {}
+ratings:
+  labels:
+    app: robot-shop
 
 redis:
+  labels:
+    app: robot-shop      
   # Storage class to use with redis statefulset.
-  storageClassName: standard
+  storageClassName: local-path
 
-shipping: {}
+shipping:
+  labels:
+    app: robot-shop
 
-user: {}
+user:
+  labels:
+    app: robot-shop
 
-web: {}
+web:
+  labels:
+    app: robot-shop

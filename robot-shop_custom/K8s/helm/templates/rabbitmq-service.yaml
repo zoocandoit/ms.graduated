@@ -4,6 +4,9 @@ metadata:
   name: rabbitmq
   labels:
     service: rabbitmq
+    {{- with .Values.rabbitmq.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ports:
   - name: tcp-amqp
@@ -17,3 +20,7 @@ spec:
     targetPort: 4369
   selector:
     service: rabbitmq
+    {{- with .Values.rabbitmq.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+

@@ -4,6 +4,9 @@ metadata:
   name: mongodb
   labels:
     service: mongodb
+    {{- with .Values.mongodb.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   replicas: 1
   selector:
@@ -13,6 +16,9 @@ spec:
     metadata:
       labels:
         service: mongodb
+        {{- with .Values.mongodb.labels }}
+        {{ toYaml . | nindent 8 }}
+        {{- end }}
     spec:
       {{ if .Values.psp.enabled }}
       serviceAccountName: robot-shop
@@ -43,3 +49,4 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+

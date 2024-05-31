@@ -3,6 +3,10 @@ apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: robot-shop
+  labels:
+    {{- with .Values.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   allowPrivilegeEscalation: false
   fsGroup:
@@ -24,3 +28,4 @@ spec:
   - secret
   - projected
 {{ end }}
+

@@ -1,9 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: redis
   labels:
     service: redis
-  name: redis
+    {{- with .Values.redis.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   ports:
   - name: redis
@@ -11,3 +14,7 @@ spec:
     targetPort: 6379
   selector:
     service: redis
+    {{- with .Values.redis.labels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+
