@@ -37,22 +37,32 @@ ocCreateRoute: false
 cart:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker2      
 
 catalogue:
   labels:
     app: robot-shop
+  nodeSelector:  
+    name: worker2
 
 dispatch:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker
 
 mongodb:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker2
 
 mysql:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker2
 
 payment:
   labels:
@@ -61,29 +71,43 @@ payment:
   # Default is https://www.paypal.com
   gateway: null
   #gateway: https://www.worldpay.com
+  nodeSelector:
+    name: worker2
 
 rabbitmq:
   labels:
     app: robot-shop
+  nodeSelector:  
+    name: worker2
 
 ratings:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker
 
 redis:
   labels:
     app: robot-shop      
   # Storage class to use with redis statefulset.
   storageClassName: local-path
+  nodeSelector:
+    name: worker
 
 shipping:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker
 
 user:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker
 
 web:
   labels:
     app: robot-shop
+  nodeSelector:
+    name: worker
